@@ -1,0 +1,333 @@
+import { useState, useEffect } from 'react';
+import { guideApi } from '../api';
+
+const FOLGE_EMOJI = {
+  1: '🟢', 2: '🟢', 3: '🟡', 4: '🟡', 5: '🔴', 6: '🔴', 7: '⚫'
+};
+
+const TIP_CONFIG = {
+  einsteiger: { emoji: '💡', label: 'Einsteiger-Tipp', color: 'bg-green-900/20 border-green-800/30 text-green-300' },
+  pro:        { emoji: '⭐', label: 'Pro-Tipp', color: 'bg-yellow-900/20 border-yellow-800/30 text-yellow-300' },
+  spass:      { emoji: '🎮', label: 'Spaß-Empfehlung', color: 'bg-blue-900/20 border-blue-800/30 text-blue-300' },
+  server:     { emoji: '⚠️', label: 'Server-Hinweis', color: 'bg-orange-900/20 border-orange-800/30 text-orange-300' },
+};
+
+// Which tip types each experience level can see
+function getVisibleTipTypes(level) {
+  if (level === 'veteran') return ['pro', 'spass', 'server'];
+  return ['einsteiger', 'pro', 'spass', 'server']; // neuling & kenner see all
+}
+
+const TIP_FILTER_OPTIONS = [
+  { value: 'all', label: 'Alle' },
+  { value: 'einsteiger', label: '💡 Einsteiger' },
+  { value: 'pro', label: '⭐ Profis' },
+  { value: 'spass', label: '🎮 Extras' },
+  { value: 'server', label: '⚠️ Server' },
+];
+
+export default function Guide({ player }) {
+  const [phases, setPhases] = useState([]);
+  const [selectedFolge, setSelectedFolge] = useState(null);
+  const [expandedProd, setExpandedProd] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [tipFilter, setTipFilter] = useState('all');
+
+  useEffect(() => {
+    guideApi.getPhases().then(data => {
+      setPhases(data);
+      setLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <div className="p-6 text-center text-gray-400 animate-pulse">Leitfaden wird geladen...</div>;
+  }
+
+  const selectedPhase = phases.find(p => p.folge_number === selectedFolge);
+  const visibleTypes = getVisibleTipTypes(player.experience_level);
+
+  return (
+    <div className="p-4 md:p-6 max-w-5xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <div>
+          <h2 className="text-2xl font-bold text-white mb-1">Leitfaden</h2>
+          <p className="text-gray-400 text-sm">Basierend auf Tschukis Masterclass 1.0</p>
+        </div>
+
+        {/* Tip Filter */}
+        <div className="flex items-center gap-1.5 bg-surface rounded-lg p-1">
+          {TIP_FILTER_OPTIONS
+            .filter(opt => opt.value === 'all' || visibleTypes.includes(opt.value))
+            .map(opt => (
+            <button
+              key={opt.value}
+              onClick={() => setTipFilter(tipFilter === opt.value ? 'all' : opt.value)}
+              className={`px-2.5 py-1 text-xs rounded font-medium transition-colors ${
+                tipFilter === opt.value
+                  ? 'bg-satisfactory text-black'
+                  : 'text-gray-400 hover:text-white hover:bg-surface-lighter'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Episode Navigation */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 mb-6">
+        {phases.map(phase => (
+          <button
+            key={phase.id}
+            onClick={() => {
+              setSelectedFolge(selectedFolge === phase.folge_number ? null : phase.folge_number);
+              setExpandedProd(null);
+            }}
+            className={`rounded-xl p-3 text-left transition-all border ${
+              selectedFolge === phase.folge_number
+                ? 'border-satisfactory bg-satisfactory/10'
+                : 'border-surface-lighter bg-surface hover:bg-surface-light'
+            }`}
+          >
+            <div className="text-lg mb-1">{FOLGE_EMOJI[phase.folge_number]}</div>
+            <div className="text-xs text-gray-400">Folge {phase.folge_number}</div>
+            <div className="text-sm font-medium text-white truncate">{phase.title}</div>
+            <div className="text-xs text-gray-500 mt-1">{phase.tier_requirement}</div>
+          </button>
+        ))}
+      </div>
+
+      {/* Selected Phase Detail */}
+      {selectedPhase && (
+        <PhaseDetail
+          phase={selectedPhase}
+          expandedProd={expandedProd}
+          setExpandedProd={setExpandedProd}
+          player={player}
+          tipFilter={tipFilter}
+          visibleTypes={visibleTypes}
+        />
+      )}
+
+      {/* Overview when nothing selected */}
+      {!selectedPhase && (
+        <div className="space-y-3">
+          {phases.map(phase => (
+            <button
+              key={phase.id}
+              onClick={() => { setSelectedFolge(phase.folge_number); setExpandedProd(null); }}
+              className="w-full bg-surface rounded-xl p-4 text-left hover:bg-surface-light transition-colors flex items-center gap-4"
+            >
+              <span className="text-2xl">{FOLGE_EMOJI[phase.folge_number]}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-white">Folge {phase.folge_number} – {phase.title}</span>
+                  <span className="text-xs text-gray-500 bg-surface-lighter px-2 py-0.5 rounded">
+                    {phase.tier_requirement}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-400 mt-1">
+                  {phase.productions.length} Produktion{phase.productions.length !== 1 ? 'en' : ''}
+                  {phase.productions.some(p => p.power_adjusted_mw) && (
+                    <span className="ml-2">
+                      ⚡ ~{phase.productions.reduce((sum, p) => sum + (p.power_adjusted_mw || 0), 0).toLocaleString('de-DE')} MW
+                    </span>
+                  )}
+                </div>
+              </div>
+              <span className="text-gray-500 text-xl">›</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PhaseDetail({ phase, expandedProd, setExpandedProd, player, tipFilter, visibleTypes }) {
+  const totalPower = phase.productions.reduce((sum, p) => sum + (p.power_adjusted_mw || 0), 0);
+
+  return (
+    <div>
+      {/* Phase Header */}
+      <div className="bg-surface rounded-xl p-5 mb-4" style={{ borderLeft: `4px solid ${phase.color}` }}>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xl">{FOLGE_EMOJI[phase.folge_number]}</span>
+          <h3 className="text-xl font-bold text-white">
+            Folge {phase.folge_number} – {phase.title}
+          </h3>
+        </div>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">
+            🔬 {phase.tier_requirement}
+          </span>
+          {totalPower > 0 && (
+            <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">
+              ⚡ ~{totalPower.toLocaleString('de-DE')} MW (50%)
+            </span>
+          )}
+          <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">
+            🏗️ {phase.productions.length} Produktion{phase.productions.length !== 1 ? 'en' : ''}
+          </span>
+        </div>
+        {phase.youtube_url && (
+          <a
+            href={phase.youtube_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 mt-3 text-sm text-satisfactory hover:text-satisfactory-dark transition-colors"
+          >
+            ▶ Tschukis Video ansehen
+          </a>
+        )}
+      </div>
+
+      {/* Productions List */}
+      <div className="space-y-3">
+        {phase.productions.map(prod => (
+          <ProductionCard
+            key={prod.id}
+            production={prod}
+            expanded={expandedProd === prod.id}
+            onToggle={() => setExpandedProd(expandedProd === prod.id ? null : prod.id)}
+            tipFilter={tipFilter}
+            visibleTypes={visibleTypes}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProductionCard({ production, expanded, onToggle, tipFilter, visibleTypes }) {
+  const prod = production;
+  const [tipsExpanded, setTipsExpanded] = useState(false);
+
+  // Filter tips: first by player level visibility, then by selected filter
+  const filteredTips = (prod.tips || []).filter(tip => {
+    if (!visibleTypes.includes(tip.type)) return false;
+    if (tipFilter !== 'all' && tip.type !== tipFilter) return false;
+    return true;
+  });
+
+  const tipCount = filteredTips.length;
+
+  return (
+    <div className="bg-surface rounded-xl overflow-hidden">
+      <button
+        onClick={onToggle}
+        className="w-full px-5 py-4 flex items-center gap-4 hover:bg-surface-light transition-colors text-left"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-semibold text-white">{prod.name}</span>
+            {prod.somersloops_needed > 0 && (
+              <span className="text-xs bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded">
+                🔮 Somersloops
+              </span>
+            )}
+            {tipCount > 0 && (
+              <span className="text-xs bg-surface-lighter text-gray-400 px-2 py-0.5 rounded">
+                💬 {tipCount} Tipp{tipCount !== 1 ? 's' : ''}
+              </span>
+            )}
+          </div>
+          {prod.power_adjusted_mw && (
+            <span className="text-sm text-gray-400">⚡ ~{prod.power_adjusted_mw.toLocaleString('de-DE')} MW</span>
+          )}
+        </div>
+        <span className={`text-gray-400 transition-transform ${expanded ? 'rotate-90' : ''}`}>›</span>
+      </button>
+
+      {expanded && (
+        <div className="px-5 pb-4 space-y-4 border-t border-surface-lighter pt-4">
+          {/* Prerequisites */}
+          <div>
+            <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+              Voraussetzungen
+            </h4>
+            <p className="text-sm text-gray-300">{prod.prerequisites_text}</p>
+          </div>
+
+          {/* Outputs */}
+          <div>
+            <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+              Produktion / Output
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {prod.outputs.map((output, i) => (
+                <div key={i} className="bg-surface-light rounded-lg px-3 py-2 flex items-center justify-between">
+                  <span className="text-sm text-white">{output.item}</span>
+                  {output.rate && (
+                    <span className="text-xs text-satisfactory font-medium">{output.rate}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Forwards To */}
+          {prod.forwards_to.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                Weiterleitung an
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {prod.forwards_to.map((target, i) => (
+                  <span key={i} className="text-sm bg-surface-lighter text-gray-300 px-3 py-1 rounded-lg">
+                    → {target}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Somersloops */}
+          {prod.somersloops_needed > 0 && (
+            <div className="bg-purple-900/20 border border-purple-800/30 rounded-lg p-3">
+              <span className="text-sm text-purple-300">
+                🔮 Diese Produktion benötigt Somersloops für volle Effizienz
+              </span>
+            </div>
+          )}
+
+          {/* Tips Section */}
+          {tipCount > 0 && (
+            <div>
+              <button
+                onClick={() => setTipsExpanded(!tipsExpanded)}
+                className="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wide hover:text-gray-200 transition-colors"
+              >
+                <span className={`transition-transform ${tipsExpanded ? 'rotate-90' : ''}`}>›</span>
+                💬 {tipCount} Tipp{tipCount !== 1 ? 's' : ''} anzeigen
+              </button>
+
+              {tipsExpanded && (
+                <div className="mt-2 space-y-2">
+                  {filteredTips.map(tip => {
+                    const config = TIP_CONFIG[tip.type];
+                    return (
+                      <div key={tip.id} className={`rounded-lg border p-3 ${config.color}`}>
+                        <div className="flex items-start gap-2">
+                          <span className="text-sm shrink-0">{config.emoji}</span>
+                          <div>
+                            <span className="text-xs font-semibold opacity-70">{config.label}</span>
+                            <p className="text-sm mt-0.5">{tip.text}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
