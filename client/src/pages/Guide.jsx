@@ -206,6 +206,7 @@ function PhaseDetail({ phase, expandedProd, setExpandedProd, player, tipFilter, 
 function ProductionCard({ production, expanded, onToggle, tipFilter, visibleTypes }) {
   const prod = production;
   const [tipsExpanded, setTipsExpanded] = useState(false);
+  const [planExpanded, setPlanExpanded] = useState(false);
 
   // Filter tips: first by player level visibility, then by selected filter
   const filteredTips = (prod.tips || []).filter(tip => {
@@ -230,6 +231,11 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
                 🔮 Somersloops
               </span>
             )}
+            {prod.machines && (
+              <span className="text-xs bg-blue-900/40 text-blue-400 px-2 py-0.5 rounded">
+                🏭 {prod.machines.steps.length} Schritte
+              </span>
+            )}
             {tipCount > 0 && (
               <span className="text-xs bg-surface-lighter text-gray-400 px-2 py-0.5 rounded">
                 💬 {tipCount} Tipp{tipCount !== 1 ? 's' : ''}
@@ -252,6 +258,100 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
             </h4>
             <p className="text-sm text-gray-300">{prod.prerequisites_text}</p>
           </div>
+
+          {/* Produktionsplan (Tschuki Masterclass) */}
+          {prod.machines && (
+            <div>
+              <button
+                onClick={() => setPlanExpanded(!planExpanded)}
+                className="flex items-center gap-2 text-xs font-semibold text-blue-400 uppercase tracking-wide hover:text-blue-300 transition-colors w-full text-left"
+              >
+                <span className={`transition-transform ${planExpanded ? 'rotate-90' : ''}`}>›</span>
+                🏭 Produktionsplan (Tschuki Masterclass)
+                <span className="text-gray-600 font-normal normal-case ml-1">
+                  {prod.machines.steps.length} Produktionsschritte
+                </span>
+              </button>
+
+              {planExpanded && (
+                <div className="mt-3 space-y-3">
+                  {/* Rohstoffe */}
+                  <div className="bg-surface-light rounded-xl p-4">
+                    <div className="text-xs text-gray-500 uppercase mb-2">⛏️ Rohstoff-Input</div>
+                    <div className="flex flex-wrap gap-2">
+                      {prod.machines.raw_inputs.map((inp, i) => (
+                        <div key={i} className="flex items-center gap-1.5 bg-surface rounded-lg px-3 py-1.5">
+                          <span className="text-sm text-white">{inp.item}</span>
+                          <span className="text-xs font-bold text-blue-400">{inp.rate}/min</span>
+                          {inp.note && <span className="text-xs text-gray-500 italic">({inp.note})</span>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Maschinenschritte */}
+                  <div className="space-y-2">
+                    {prod.machines.steps.map((step, i) => (
+                      <div key={i} className="bg-surface-light rounded-xl overflow-hidden">
+                        {/* Header */}
+                        <div className={`px-4 py-2.5 flex items-center gap-3 ${step.is_alternate ? 'bg-yellow-900/20' : ''}`}>
+                          <div className={`text-xs font-bold px-2 py-0.5 rounded shrink-0 ${
+                            step.machine === 'Schmelze'      ? 'bg-orange-900/50 text-orange-300' :
+                            step.machine === 'Gießerei'      ? 'bg-red-900/50 text-red-300' :
+                            step.machine === 'Konstrukteur'  ? 'bg-green-900/50 text-green-300' :
+                            step.machine === 'Monteur'       ? 'bg-blue-900/50 text-blue-300' :
+                            step.machine === 'Raffinerie'    ? 'bg-purple-900/50 text-purple-300' :
+                            step.machine === 'Hersteller'    ? 'bg-cyan-900/50 text-cyan-300' :
+                                                              'bg-surface-lighter text-gray-300'
+                          }`}>
+                            {step.count_display}×
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-sm font-medium text-white">{step.machine}</span>
+                            <span className="text-xs text-gray-400 ml-2">
+                              {step.is_alternate && <span className="text-yellow-500">ALT: </span>}
+                              {step.recipe}
+                            </span>
+                          </div>
+                        </div>
+                        {/* I/O */}
+                        <div className="px-4 pb-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                          <div className="flex flex-wrap gap-1.5">
+                            {step.inputs.map((inp, j) => (
+                              <span key={j} className="text-gray-400">
+                                {inp.item} <span className="text-blue-400 font-medium">{inp.rate}/min</span>
+                              </span>
+                            ))}
+                          </div>
+                          <span className="text-gray-600">→</span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {step.outputs.map((out, j) => (
+                              <span key={j} className="text-gray-300">
+                                {out.item} <span className="text-satisfactory font-medium">{out.rate}/min</span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Outputs */}
+                  <div className="bg-surface-light rounded-xl p-4">
+                    <div className="text-xs text-gray-500 uppercase mb-2">📦 Output dieser Produktion</div>
+                    <div className="flex flex-wrap gap-2">
+                      {prod.machines.final_outputs.map((out, i) => (
+                        <div key={i} className="flex items-center gap-1.5 bg-surface rounded-lg px-3 py-1.5">
+                          <span className="text-sm text-white">{out.item}</span>
+                          <span className="text-xs font-bold text-satisfactory">{out.rate}/min</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Outputs */}
           <div>

@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { initDatabase } from './database.js';
 import { seedGuide } from './seed-guide.js';
 import { seedRecipes } from './seed-recipes.js';
+import { seedMachines } from './seed-machines.js';
 import playersRouter from './routes/players.js';
 import guideRouter from './routes/guide.js';
 import tasksRouter from './routes/tasks.js';
@@ -53,6 +54,7 @@ async function start() {
   await initDatabase();
   seedGuide();
   seedRecipes();
+  seedMachines();
   app.listen(PORT, () => {
     console.log(`Satisfactory Companion Server laeuft auf http://localhost:${PORT}`);
   });
