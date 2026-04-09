@@ -301,7 +301,7 @@ export function seedMachines() {
         { item: 'Kunststoff', rate: 60  },
         { item: 'Petrolkoks', rate: 330 }
       ]
-    }
+    },
 
     // ─── FOLGE 3 (Endgame) ──────────────────────────────────────────────────
     'Copterium City Final': {
@@ -539,6 +539,121 @@ export function seedMachines() {
         { item: 'Kraftstoff',          rate: 540 },
         { item: 'Verpackter Kraftstoff', rate: 30 },
         { item: 'Gewebe',              rate: 30  }
+      ]
+    },
+
+    // ─── FOLGE 5 ────────────────────────────────────────────────────────────
+    'Maxi IBM': {
+      raw_inputs: [
+        { item: 'Kupfererz',                 rate: 241 },
+        { item: 'Siliziumdioxid',            rate: 101.75, note: 'von Kwartz Endgame' },
+        { item: 'Kristalloszillator',        rate: 10,     note: 'von Kwartz Endgame' },
+        { item: 'Automatisiertes Kabel',     rate: 12.5 },
+        { item: 'Schwerer Modularer Rahmen', rate: 2.5 },
+        { item: 'Schnelldraht',              rate: 210 }
+      ],
+      steps: [
+        {
+          machine: 'Schmelze', count_display: '8.033', recipe: 'Kupferbarren', is_alternate: false,
+          inputs:  [{ item: 'Kupfererz',    rate: 241 }],
+          outputs: [{ item: 'Kupferbarren', rate: 241 }]
+        },
+        {
+          machine: 'Konstrukteur', count_display: '10.175', recipe: 'Kupferblech', is_alternate: false,
+          inputs:  [{ item: 'Kupferbarren', rate: 101.75 }],
+          outputs: [{ item: 'Kupferblech',  rate: 101.75 }]
+        },
+        {
+          machine: 'Konstrukteur', count_display: '2.5', recipe: 'Draht', is_alternate: false,
+          inputs:  [{ item: 'Kupferbarren', rate: 37.5 }],
+          outputs: [{ item: 'Draht', rate: 75 }]
+        },
+        {
+          machine: 'Konstrukteur', count_display: '1.25', recipe: 'Kabel', is_alternate: false,
+          inputs:  [{ item: 'Draht', rate: 75 }],
+          outputs: [{ item: 'Kabel', rate: 37.5 }]
+        },
+        {
+          machine: 'Monteur', count_display: '3.7', recipe: 'Alt: Silizium-Leiterplatine', is_alternate: true,
+          inputs:  [{ item: 'Kupferblech', rate: 101.75 }, { item: 'Siliziumdioxid', rate: 101.75 }],
+          outputs: [{ item: 'Leiterplatine', rate: 33.75 }]
+        },
+        {
+          machine: 'Monteur', count_display: '6', recipe: 'Alt: Kristallcomputer', is_alternate: true,
+          inputs:  [{ item: 'Leiterplatine', rate: 30 }, { item: 'Kristalloszillator', rate: 10 }],
+          outputs: [{ item: 'Computer', rate: 15 }]
+        },
+        {
+          machine: 'Hersteller', count_display: '1', recipe: 'Hochgeschwindigkeitsverbinder', is_alternate: false,
+          inputs:  [{ item: 'Leiterplatine', rate: 3.75 }, { item: 'Kabel', rate: 37.5 }, { item: 'Schnelldraht', rate: 210 }],
+          outputs: [{ item: 'Hochgeschwindigkeitsverbinder', rate: 3.75 }]
+        },
+        {
+          machine: 'Hersteller', count_display: '2.5', recipe: 'Adaptive Steuereinheit', is_alternate: false,
+          inputs:  [
+            { item: 'Automatisiertes Kabel',          rate: 12.5 },
+            { item: 'Hochgeschwindigkeitsverbinder',   rate: 2.5 },
+            { item: 'Computer',                        rate: 2.5 },
+            { item: 'Schwerer Modularer Rahmen',       rate: 2.5 }
+          ],
+          outputs: [{ item: 'Adaptive Steuereinheit', rate: 2.5 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Computer',                     rate: 15   },
+        { item: 'Hochgeschwindigkeitsverbinder', rate: 3.75 },
+        { item: 'Adaptive Steuereinheit',       rate: 5    }
+      ]
+    },
+
+    'ALU Starter': {
+      raw_inputs: [
+        { item: 'Bauxit',      rate: 60 },
+        { item: 'Wasser',      rate: 60, note: '30/min Nebenprodukt aus Aluminiumschrott-Raffinerie recycled' },
+        { item: 'Kohle',       rate: 30 },
+        { item: 'Roher Quarz', rate: 30 },
+        { item: 'Kupfererz',   rate: 10 }
+      ],
+      steps: [
+        {
+          machine: 'Konstrukteur', count_display: '1.333', recipe: 'Siliziumdioxid', is_alternate: false,
+          inputs:  [{ item: 'Roher Quarz',    rate: 30 }],
+          outputs: [{ item: 'Siliziumdioxid', rate: 50 }]
+        },
+        {
+          machine: 'Raffinerie', count_display: '0.5', recipe: 'Aluminiumlösung', is_alternate: false,
+          inputs:  [{ item: 'Bauxit', rate: 60 }, { item: 'Wasser', rate: 90 }],
+          outputs: [{ item: 'Aluminiumlösung', rate: 60 }]
+        },
+        {
+          machine: 'Raffinerie', count_display: '0.25', recipe: 'Aluminiumschrott', is_alternate: false,
+          inputs:  [{ item: 'Aluminiumlösung', rate: 60 }, { item: 'Kohle', rate: 30 }],
+          outputs: [{ item: 'Aluminiumschrott', rate: 90 }, { item: 'Wasser', rate: 30 }]
+        },
+        {
+          machine: 'Gießerei', count_display: '1', recipe: 'Aluminiumbarren', is_alternate: false,
+          inputs:  [{ item: 'Aluminiumschrott', rate: 90 }, { item: 'Siliziumdioxid', rate: 50 }],
+          outputs: [{ item: 'Aluminiumbarren', rate: 60 }]
+        },
+        {
+          machine: 'Konstrukteur', count_display: '0.333', recipe: 'Aluminiumgehäuse', is_alternate: false,
+          inputs:  [{ item: 'Aluminiumbarren', rate: 30 }],
+          outputs: [{ item: 'Aluminiumgehäuse', rate: 20 }]
+        },
+        {
+          machine: 'Schmelze', count_display: '0.333', recipe: 'Kupferbarren', is_alternate: false,
+          inputs:  [{ item: 'Kupfererz',    rate: 10 }],
+          outputs: [{ item: 'Kupferbarren', rate: 10 }]
+        },
+        {
+          machine: 'Monteur', count_display: '1', recipe: 'Alclad-Aluminiumblech', is_alternate: false,
+          inputs:  [{ item: 'Aluminiumbarren', rate: 30 }, { item: 'Kupferbarren', rate: 10 }],
+          outputs: [{ item: 'Alclad-Aluminiumblech', rate: 30 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Aluminiumgehäuse',    rate: 20 },
+        { item: 'Alclad-Aluminiumblech', rate: 30 }
       ]
     },
 
