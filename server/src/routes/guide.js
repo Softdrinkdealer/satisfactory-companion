@@ -9,6 +9,7 @@ function enrichProduction(p) {
     ...p,
     outputs: JSON.parse(p.outputs_json || '[]'),
     forwards_to: JSON.parse(p.forwards_to_json || '[]'),
+    requirements: p.requirements_json ? JSON.parse(p.requirements_json) : null,
     tips,
   };
 }

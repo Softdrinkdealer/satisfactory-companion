@@ -245,6 +245,80 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
 
       {expanded && (
         <div className="px-5 pb-4 space-y-4 border-t border-surface-lighter pt-4">
+          {/* Bedarfsliste */}
+          {prod.requirements && (
+            <div className="bg-surface-light rounded-xl p-4 space-y-3">
+              <h4 className="text-xs font-semibold text-satisfactory uppercase tracking-wide">
+                📋 Bedarfsliste – Was brauchst du vorher?
+              </h4>
+
+              {prod.requirements.research?.length > 0 && (
+                <div>
+                  <div className="text-xs text-gray-500 uppercase mb-1.5">🔬 Forschung / Tier</div>
+                  <div className="space-y-1">
+                    {prod.requirements.research.map((r, i) => (
+                      <div key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                        <span className="text-gray-600 mt-0.5">•</span> {r}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {prod.requirements.resources?.length > 0 && (
+                <div>
+                  <div className="text-xs text-gray-500 uppercase mb-1.5">⛏️ Rohstoffe</div>
+                  <div className="space-y-1.5">
+                    {prod.requirements.resources.map((r, i) => (
+                      <div key={i} className="flex items-start justify-between gap-2">
+                        <div className="flex items-start gap-2">
+                          <span className="text-gray-600 mt-0.5">•</span>
+                          <div>
+                            <span className="text-sm text-white">{r.item}</span>
+                            {r.note && <div className="text-xs text-gray-500 mt-0.5">{r.note}</div>}
+                          </div>
+                        </div>
+                        {r.rate && (
+                          <span className="text-xs font-medium text-blue-400 shrink-0">{r.rate}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {prod.requirements.productions?.length > 0 && (
+                <div>
+                  <div className="text-xs text-gray-500 uppercase mb-1.5">🏗️ Laufende Produktionen</div>
+                  <div className="space-y-1.5">
+                    {prod.requirements.productions.map((p, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <span className="text-gray-600 mt-0.5">•</span>
+                        <div>
+                          <span className="text-sm text-white">{p.name}</span>
+                          <div className="text-xs text-gray-500 mt-0.5">{p.reason}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {prod.power_original_mw && (
+                <div>
+                  <div className="text-xs text-gray-500 uppercase mb-1.5">⚡ Benötigter Strom</div>
+                  <span className="text-sm text-red-400 font-medium">~{prod.power_original_mw.toLocaleString('de-DE')} MW</span>
+                </div>
+              )}
+
+              {prod.requirements.note && (
+                <div className="bg-orange-900/20 border border-orange-800/30 rounded-lg p-2.5">
+                  <p className="text-xs text-orange-300">{prod.requirements.note}</p>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Prerequisites */}
           <div>
             <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">

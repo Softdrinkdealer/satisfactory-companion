@@ -9,9 +9,9 @@ const CATEGORIES = [
 ];
 
 const STATUS_CONFIG = {
-  offen: { emoji: '🟢', label: 'Offen', next: 'in_arbeit', nextLabel: 'Starten' },
-  in_arbeit: { emoji: '🔄', label: 'In Arbeit', next: 'fertig', nextLabel: 'Fertig' },
-  fertig: { emoji: '✅', label: 'Fertig', next: null, nextLabel: null },
+  offen: { emoji: '🟢', label: 'Offen', next: 'in_arbeit', nextLabel: 'Starten', prev: null, prevLabel: null },
+  in_arbeit: { emoji: '🔄', label: 'In Arbeit', next: 'fertig', nextLabel: 'Fertig', prev: 'offen', prevLabel: 'Zurück' },
+  fertig: { emoji: '✅', label: 'Fertig', next: null, nextLabel: null, prev: 'in_arbeit', prevLabel: 'Wieder öffnen' },
 };
 
 const HANDOVER_REASONS = ['Zu komplex', 'Keine Zeit', 'Kein Bock 😄'];
@@ -238,9 +238,8 @@ function TaskCard({ task, player, players, onUpdate }) {
   const cat = CATEGORIES.find(c => c.value === task.category);
   const isMine = task.assigned_to_player_id === player.id;
 
-  async function handleStatusChange() {
-    if (!status.next) return;
-    await tasksApi.updateStatus(task.id, status.next, player.id);
+  async function handleStatusChange(newStatus) {
+    await tasksApi.updateStatus(task.id, newStatus, player.id);
     onUpdate();
   }
 
@@ -281,9 +280,18 @@ function TaskCard({ task, player, players, onUpdate }) {
 
         {/* Actions */}
         <div className="flex items-center gap-1.5 shrink-0">
+          {status.prev && (
+            <button
+              onClick={() => handleStatusChange(status.prev)}
+              className="text-xs bg-surface-lighter hover:bg-gray-600 hover:text-white text-gray-500 px-2.5 py-1 rounded-lg transition-colors font-medium"
+              title={status.prevLabel}
+            >
+              ↩ {status.prevLabel}
+            </button>
+          )}
           {status.next && (
             <button
-              onClick={handleStatusChange}
+              onClick={() => handleStatusChange(status.next)}
               className="text-xs bg-surface-lighter hover:bg-satisfactory hover:text-black text-gray-300 px-2.5 py-1 rounded-lg transition-colors font-medium"
             >
               {status.nextLabel}

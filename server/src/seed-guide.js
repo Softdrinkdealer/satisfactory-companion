@@ -12,7 +12,7 @@ export function seedGuide() {
       productions: [
         {
           name: 'Dwight D. Eisentower',
-          power_original: 436, power_adjusted: 218,
+          power_original: 436, power_adjusted: 436,
           prerequisites: 'Tier 2 freigeschaltet',
           outputs: JSON.stringify([
             { item: 'Rotoren', rate: '10/min' },
@@ -21,7 +21,15 @@ export function seedGuide() {
             { item: 'Intelligente Beschichtung', rate: '2/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 2 – Teile & Bau freigeschaltet'],
+            resources: [
+              { item: 'Eisenerz', rate: '120/min', note: 'Reiner Node empfohlen' }
+            ],
+            productions: [],
+            note: null
+          })
         }
       ]
     },
@@ -32,7 +40,7 @@ export function seedGuide() {
       productions: [
         {
           name: 'Copterium Starter',
-          power_original: 78, power_adjusted: 39,
+          power_original: 78, power_adjusted: 78,
           prerequisites: 'Tier 3 freigeschaltet',
           outputs: JSON.stringify([
             { item: 'KI-Begrenzer', rate: '5/min' },
@@ -40,22 +48,40 @@ export function seedGuide() {
             { item: 'Kabel', rate: '30/min' }
           ]),
           forwards_to: JSON.stringify(['Copterium City Final']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 3 – Grundlegende Stahlproduktion freigeschaltet'],
+            resources: [
+              { item: 'Kupfererz', rate: '60/min', note: 'Normaler Node reicht' },
+              { item: 'Eisenerz', rate: '30/min', note: 'Für Stahlrohre' }
+            ],
+            productions: [],
+            note: null
+          })
         },
         {
           name: 'Steelworks Starter',
-          power_original: 52, power_adjusted: 26,
+          power_original: 52, power_adjusted: 52,
           prerequisites: 'Tier 3–4 freigeschaltet, Kohle verfügbar',
           outputs: JSON.stringify([
             { item: 'Stahlrohr', rate: '20/min' },
             { item: 'Stahlträger', rate: '15/min' }
           ]),
           forwards_to: JSON.stringify(['Steelworks Endgame']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 3 – Stahlproduktion freigeschaltet'],
+            resources: [
+              { item: 'Eisenerz', rate: '45/min', note: null },
+              { item: 'Kohle', rate: '45/min', note: 'Kohle-Node erschließen' }
+            ],
+            productions: [],
+            note: null
+          })
         },
         {
           name: 'Steelworks Endgame',
-          power_original: 650, power_adjusted: 325,
+          power_original: 650, power_adjusted: 650,
           prerequisites: 'Steelworks Starter läuft, Tier 4 freigeschaltet',
           outputs: JSON.stringify([
             { item: 'Stator', rate: '10/min' },
@@ -63,7 +89,18 @@ export function seedGuide() {
             { item: 'Automatische Verkabelung', rate: '5/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 4 – Erweiterte Stahlproduktion freigeschaltet'],
+            resources: [
+              { item: 'Kupfererz', rate: '30/min', note: 'Für Draht & Kabel' }
+            ],
+            productions: [
+              { name: 'Steelworks Starter', reason: 'Liefert Stahlrohr (20/min)' },
+              { name: 'Copterium Starter', reason: 'Liefert Kabel (30/min)' }
+            ],
+            note: null
+          })
         }
       ]
     },
@@ -74,17 +111,26 @@ export function seedGuide() {
       productions: [
         {
           name: 'General Motors Starter',
-          power_original: 278, power_adjusted: 139,
+          power_original: 278, power_adjusted: 278,
           prerequisites: 'Tier 4 freigeschaltet, Stator-Produktion läuft',
           outputs: JSON.stringify([
             { item: 'Motor', rate: '10/min' }
           ]),
           forwards_to: JSON.stringify(['General Motors Final']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 4 – Motoren freigeschaltet'],
+            resources: [],
+            productions: [
+              { name: 'Dwight D. Eisentower', reason: 'Liefert Rotoren (10/min)' },
+              { name: 'Steelworks Endgame', reason: 'Liefert Statoren (10/min)' }
+            ],
+            note: null
+          })
         },
         {
           name: 'Oil of Olaz Starter',
-          power_original: 292, power_adjusted: 146,
+          power_original: 292, power_adjusted: 292,
           prerequisites: 'Tier 5 freigeschaltet, Ölquelle erschlossen',
           outputs: JSON.stringify([
             { item: 'Kunststoff', rate: '30/min' },
@@ -92,11 +138,20 @@ export function seedGuide() {
             { item: 'Petrolkoks', rate: '60/min' }
           ]),
           forwards_to: JSON.stringify(['Oil of Olaz Final']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 5 – Ölverarbeitung freigeschaltet'],
+            resources: [
+              { item: 'Rohöl', rate: '120/min', note: 'Öl-Node erschließen, Pipeline bauen' },
+              { item: 'Wasser', rate: '60/min', note: 'Wasserextraktoren benötigt' }
+            ],
+            productions: [],
+            note: 'Pipelines statt Förderbänder – Patrick kann das erklären!'
+          })
         },
         {
           name: 'Copterium City Final',
-          power_original: 416, power_adjusted: 208,
+          power_original: 416, power_adjusted: 416,
           prerequisites: 'Copterium Starter läuft, Kunststoff verfügbar',
           outputs: JSON.stringify([
             { item: 'KI-Begrenzer', rate: '10/min' },
@@ -104,18 +159,39 @@ export function seedGuide() {
             { item: 'Kupferblech', rate: '30/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 5 – Industrieproduktion freigeschaltet'],
+            resources: [
+              { item: 'Kupfererz', rate: '60/min', note: null }
+            ],
+            productions: [
+              { name: 'Copterium Starter', reason: 'Liefert Turbodraht & KI-Begrenzer als Basis' },
+              { name: 'Oil of Olaz Starter', reason: 'Liefert Kunststoff (30/min)' }
+            ],
+            note: null
+          })
         },
         {
           name: 'General Motors Final',
-          power_original: 972, power_adjusted: 486,
+          power_original: 972, power_adjusted: 972,
           prerequisites: 'General Motors Starter läuft, Öl-Produkte verfügbar',
           outputs: JSON.stringify([
             { item: 'Modularer Motor', rate: '2/min' },
             { item: 'Motor', rate: '10/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 5 – Industrielle Produktion freigeschaltet'],
+            resources: [],
+            productions: [
+              { name: 'General Motors Starter', reason: 'Liefert Motoren (10/min)' },
+              { name: 'Oil of Olaz Starter', reason: 'Liefert Gummi (15/min)' },
+              { name: 'Steelworks Endgame', reason: 'Liefert Intelligente Beschichtung (2/min)' }
+            ],
+            note: null
+          })
         }
       ]
     },
@@ -126,17 +202,28 @@ export function seedGuide() {
       productions: [
         {
           name: 'HeavyRames Endgame',
-          power_original: 672, power_adjusted: 336,
+          power_original: 672, power_adjusted: 672,
           prerequisites: 'Tier 6 freigeschaltet, Modulare Rahmen & Stahlproduktion',
           outputs: JSON.stringify([
             { item: 'Schwerer Modularer Rahmen', rate: '4/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 1
+          somersloops: 1,
+          requirements: JSON.stringify({
+            research: ['Tier 6 – Schwere Modularproduktion freigeschaltet'],
+            resources: [
+              { item: 'Eisenerz', rate: '60/min', note: 'Zusätzlich zu Folge 1' }
+            ],
+            productions: [
+              { name: 'Dwight D. Eisentower', reason: 'Liefert Modulare Rahmen (4/min) & Verstärkte Eisenplatten' },
+              { name: 'Steelworks Starter', reason: 'Liefert Stahlrohre (30/min)' }
+            ],
+            note: '🔮 Somersloops erforderlich für volle Effizienz'
+          })
         },
         {
           name: 'Oil of Olaz Final',
-          power_original: 1194, power_adjusted: 597,
+          power_original: 1194, power_adjusted: 1194,
           prerequisites: 'Oil of Olaz Starter läuft, erweiterte Ölverarbeitung',
           outputs: JSON.stringify([
             { item: 'Treibstoff', rate: '40/min' },
@@ -145,18 +232,42 @@ export function seedGuide() {
             { item: 'Petrolkoks', rate: '120/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 5 – Ölverarbeitung', 'Alternativrezept: Diluted Packaged Fuel (empfohlen)'],
+            resources: [
+              { item: 'Rohöl', rate: '240/min', note: 'Mehrere Öl-Nodes nötig' },
+              { item: 'Wasser', rate: '120/min', note: 'Wasserextraktoren' }
+            ],
+            productions: [
+              { name: 'Oil of Olaz Starter', reason: 'Basis-Ölverarbeitung muss laufen' }
+            ],
+            note: null
+          })
         },
         {
           name: 'Kwartz Endgame',
-          power_original: 932, power_adjusted: 466,
+          power_original: 932, power_adjusted: 932,
           prerequisites: 'Tier 6, Quarz-Nodes erschlossen',
           outputs: JSON.stringify([
             { item: 'Quarzoszillator', rate: '10/min' },
             { item: 'Quarzsand', rate: '60/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 6 – Quarzverarbeitung freigeschaltet'],
+            resources: [
+              { item: 'Rohquarz', rate: '120/min', note: 'Quarz-Nodes erkunden & erschließen' },
+              { item: 'Kupfererz', rate: '30/min', note: 'Für Kabel in Quarzoszillatoren' },
+              { item: 'Eisenerz', rate: '15/min', note: 'Für Verstärkte Eisenplatten' }
+            ],
+            productions: [
+              { name: 'Dwight D. Eisentower', reason: 'Liefert Verstärkte Eisenplatten (5/min)' },
+              { name: 'Copterium Starter', reason: 'Liefert Kabel (28/min)' }
+            ],
+            note: 'Quarz-Nodes sind oft weiter entfernt – Zug oder langes Förderband einplanen'
+          })
         }
       ]
     },
@@ -174,7 +285,19 @@ export function seedGuide() {
             { item: 'Adaptive Steuereinheit', rate: '2/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 1
+          somersloops: 1,
+          requirements: JSON.stringify({
+            research: ['Tier 6 – Computer freigeschaltet'],
+            resources: [
+              { item: 'Kupfererz', rate: '60/min', note: 'Für Kupferblech & Platinen' }
+            ],
+            productions: [
+              { name: 'Oil of Olaz Starter', reason: 'Liefert Kunststoff (45/min)' },
+              { name: 'Kwartz Endgame', reason: 'Liefert Quarzoszillatoren (nicht direkt, über Platinen)' },
+              { name: 'Steelworks Endgame', reason: 'Liefert Automatische Verkabelung (15/min)' }
+            ],
+            note: '🔮 Somersloops für Adaptive Steuereinheiten empfohlen'
+          })
         },
         {
           name: 'ALU Starter',
@@ -184,7 +307,17 @@ export function seedGuide() {
             { item: 'Aluminiumprodukte', rate: null }
           ]),
           forwards_to: JSON.stringify(['Alu Area 3']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 7 – Aluminiumproduktion freigeschaltet'],
+            resources: [
+              { item: 'Bauxit', rate: '120/min', note: 'Bauxit-Nodes erkunden – oft im Norden der Map' },
+              { item: 'Wasser', rate: '180/min', note: 'Viele Wasserextraktoren nötig' },
+              { item: 'Rohquarz', rate: '75/min', note: 'Für Quarzsand im Aluminiumprozess' }
+            ],
+            productions: [],
+            note: 'Bau idealerweise in der Nähe eines Gewässers – viel Wasser nötig!'
+          })
         },
         {
           name: 'Alu Area 3',
@@ -195,7 +328,19 @@ export function seedGuide() {
             { item: 'Alclad-Platten', rate: '30/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 7 – Aluminiumverarbeitung freigeschaltet'],
+            resources: [
+              { item: 'Kupfererz', rate: '20/min', note: 'Für Kupferbarren in Alclad-Platten' }
+            ],
+            productions: [
+              { name: 'ALU Starter', reason: 'Liefert Aluminiumbarren & Aluminiumgehäuse' },
+              { name: 'Kwartz Endgame', reason: 'Liefert Quarzoszillatoren (1.25/min)' },
+              { name: 'Maxi IBM', reason: 'Liefert Computer (1.25/min)' }
+            ],
+            note: null
+          })
         },
         {
           name: 'Cool Runnings',
@@ -206,7 +351,19 @@ export function seedGuide() {
             { item: 'Verschmolzener Modularer Rahmen', rate: '1/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 7 – Kühlsysteme freigeschaltet'],
+            resources: [
+              { item: 'Stickstoff', rate: '150/min', note: 'Stickstoff-Brunnen (Resource Well) erschließen – oft in Höhlen oder an Klippen' }
+            ],
+            productions: [
+              { name: 'Oil of Olaz Starter', reason: 'Liefert Gummi (30/min) & Kühlmittel-Basis' },
+              { name: 'ALU Starter', reason: 'Liefert Aluminiumgehäuse für Verschmolzene Rahmen' },
+              { name: 'HeavyRames Endgame', reason: 'Liefert Schwere Modulare Rahmen (1.5/min)' }
+            ],
+            note: 'Stickstoff-Brunnen mit Patrick zusammen suchen!'
+          })
         }
       ]
     },
@@ -217,14 +374,27 @@ export function seedGuide() {
       productions: [
         {
           name: 'TurboSuper',
-          power_original: 324, power_adjusted: 162,
+          power_original: 324, power_adjusted: 324,
           prerequisites: 'Tier 7–8, Computer & Motor-Produktion, Kühlsysteme',
           outputs: JSON.stringify([
             { item: 'Turbomotor', rate: '2/min' },
             { item: 'Supercomputer', rate: '2/min' }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 1
+          somersloops: 1,
+          requirements: JSON.stringify({
+            research: ['Tier 8 – Turbomotoren & Supercomputer freigeschaltet'],
+            resources: [],
+            productions: [
+              { name: 'Cool Runnings', reason: 'Liefert Kühlsysteme (7.5/min)' },
+              { name: 'Alu Area 3', reason: 'Liefert Funksteuereinheiten (3.75/min)' },
+              { name: 'General Motors Starter', reason: 'Liefert Motoren (7.5/min)' },
+              { name: 'Oil of Olaz Final', reason: 'Liefert Gummi (45/min)' },
+              { name: 'Maxi IBM', reason: 'Liefert Computer (3.75/min) & KI-Begrenzer (3.75/min)' },
+              { name: 'Copterium City Final', reason: 'Liefert Turbodraht (56.25/min)' }
+            ],
+            note: '🔮 Somersloops hier einsetzen spart enorm – Inputs sind sehr teuer'
+          })
         }
       ]
     },
@@ -235,7 +405,7 @@ export function seedGuide() {
       productions: [
         {
           name: 'SpaceParts Endgame',
-          power_original: 87400, power_adjusted: 43700,
+          power_original: 87400, power_adjusted: 87400,
           prerequisites: 'Tier 8–9, alle vorherigen Produktionen',
           outputs: JSON.stringify([
             { item: 'Thermaler Raketenantrieb', rate: null },
@@ -243,11 +413,23 @@ export function seedGuide() {
             { item: 'Magnetfeld-Generator', rate: null }
           ]),
           forwards_to: JSON.stringify([]),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 8 & 9 vollständig freigeschaltet'],
+            resources: [],
+            productions: [
+              { name: 'General Motors Final', reason: 'Liefert Modulare Motoren (4/min)' },
+              { name: 'TurboSuper', reason: 'Liefert Turbomotoren (2/min)' },
+              { name: 'Cool Runnings', reason: 'Liefert Kühlsysteme (12/min) & Verschmolzene Rahmen (2/min)' },
+              { name: 'Maxi IBM', reason: 'Liefert Adaptive Steuereinheiten (2/min) & Computer (1/min)' },
+              { name: 'TurboSuper', reason: 'Liefert Supercomputer (1/min)' }
+            ],
+            note: '~87.400 MW Bedarf – Nuclear Power ist ab hier Pflicht. Gemeinsam planen!'
+          })
         },
         {
           name: 'Quanto',
-          power_original: 97634, power_adjusted: 48817,
+          power_original: 97634, power_adjusted: 97634,
           prerequisites: 'Tier 9, Dunkle Materie verfügbar',
           outputs: JSON.stringify([
             { item: 'Neural-Quantenprozessor', rate: null },
@@ -255,17 +437,33 @@ export function seedGuide() {
             { item: 'Dunkle-Materie-Produkte', rate: null }
           ]),
           forwards_to: JSON.stringify(['SpaceFarts']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 9 – Quantentechnologie freigeschaltet'],
+            resources: [],
+            productions: [
+              { name: 'SpaceParts Endgame', reason: 'Liefert alle Space-Teile als Voraussetzung' }
+            ],
+            note: 'Dunkle-Materie-Kristalle müssen zuerst entdeckt & erschlossen werden'
+          })
         },
         {
           name: 'SpaceFarts',
-          power_original: 2680, power_adjusted: 1340,
+          power_original: 2680, power_adjusted: 2680,
           prerequisites: 'Quanto läuft, Dunkle-Materie-Überrest',
           outputs: JSON.stringify([
             { item: 'Rückführung Dunkle-Materie-Überrest', rate: null }
           ]),
           forwards_to: JSON.stringify(['Quanto']),
-          somersloops: 0
+          somersloops: 0,
+          requirements: JSON.stringify({
+            research: ['Tier 9 – Quantentechnologie freigeschaltet'],
+            resources: [],
+            productions: [
+              { name: 'Quanto', reason: 'Liefert Dunkle-Materie-Überrest als Nebenprodukt' }
+            ],
+            note: 'Diese Produktion recycelt Überreste zurück in Quanto – Kreislauf schließen!'
+          })
         }
       ]
     }
@@ -282,9 +480,9 @@ export function seedGuide() {
 
     for (const prod of phase.productions) {
       execute(
-        `INSERT INTO productions (phase_id, name, power_original_mw, power_adjusted_mw, prerequisites_text, outputs_json, forwards_to_json, somersloops_needed)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [phaseId, prod.name, prod.power_original, prod.power_adjusted, prod.prerequisites, prod.outputs, prod.forwards_to, prod.somersloops]
+        `INSERT INTO productions (phase_id, name, power_original_mw, power_adjusted_mw, prerequisites_text, outputs_json, forwards_to_json, somersloops_needed, requirements_json)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [phaseId, prod.name, prod.power_original, prod.power_adjusted, prod.prerequisites, prod.outputs, prod.forwards_to, prod.somersloops, prod.requirements || null]
       );
     }
   }
@@ -302,7 +500,7 @@ function seedTips() {
     { prod: 'Dwight D. Eisentower', text: 'Eisenerz ist die Basis für fast alles im Spiel. Diese Produktion versorgt viele spätere Fabriken – nimm dir Zeit, sie sauber aufzubauen.', type: 'einsteiger', min_level: 'neuling' },
     { prod: 'Dwight D. Eisentower', text: 'Baue die Produktion modular auf: Jede Fertigungslinie als eigenen Block. So kannst du später leichter erweitern.', type: 'pro', min_level: 'neuling' },
     { prod: 'Dwight D. Eisentower', text: 'Lass zwischen den Maschinen genug Platz für spätere Förderbänder und Walkways – das spart später viel Umbau.', type: 'einsteiger', min_level: 'neuling' },
-    { prod: 'Dwight D. Eisentower', text: 'Bei 50% Stromkosten brauchst du nur ~218 MW statt 436 MW. Achte darauf, dass dein Kohlekraftwerk das abdeckt.', type: 'server', min_level: 'neuling' },
+    { prod: 'Dwight D. Eisentower', text: 'Diese Produktion zieht ~436 MW. Achte darauf, dass dein Kohlekraftwerk das abdeckt bevor du startest.', type: 'server', min_level: 'neuling' },
 
     // Folge 2 – Copterium Starter
     { prod: 'Copterium Starter', text: 'Kupfererz findest du oft in der Nähe von Eisenvorkommen. Schau dich in der Umgebung deiner Basis um.', type: 'einsteiger', min_level: 'neuling' },
@@ -324,7 +522,7 @@ function seedTips() {
     { prod: 'Oil of Olaz Starter', text: 'Öl funktioniert anders als feste Ressourcen: Du brauchst Pipelines statt Förderbänder. Patrick kann das erklären!', type: 'einsteiger', min_level: 'neuling' },
     { prod: 'Oil of Olaz Starter', text: 'Petrolkoks ist ein guter Ersatz für Kohle in Stahlproduktion – spart einen Kohle-Node.', type: 'pro', min_level: 'neuling' },
     { prod: 'Oil of Olaz Starter', text: 'Baue eine AWESOME Sink für überschüssigen Kunststoff/Gummi, bis die Weiterverarbeitung steht.', type: 'spass', min_level: 'neuling' },
-    { prod: 'Oil of Olaz Starter', text: 'Bei 50% Stromkosten lohnt sich Treibstoff-Energie besonders früh – der Kosten-Vorteil verdoppelt sich quasi.', type: 'server', min_level: 'neuling' },
+    { prod: 'Oil of Olaz Starter', text: 'Treibstoff-Generatoren lohnen sich schon früh – pro Generator 150 MW Output bei nur 40 Treibstoff/min Verbrauch.', type: 'server', min_level: 'neuling' },
 
     // Folge 3 – Copterium City Final
     { prod: 'Copterium City Final', text: 'Kupferblech wird erst ab Folge 5 richtig wichtig, aber die Produktion hier bereitet alles vor.', type: 'pro', min_level: 'neuling' },
@@ -338,7 +536,7 @@ function seedTips() {
 
     // Folge 4 – Oil of Olaz Final
     { prod: 'Oil of Olaz Final', text: 'Gewebe wird für Gasmasken und Filter gebraucht – nützlich bei Erkundungstouren in giftige Gebiete.', type: 'spass', min_level: 'neuling' },
-    { prod: 'Oil of Olaz Final', text: 'Mit 50% Stromkosten: Die ~597 MW hier sind gut durch Treibstoff-Generatoren abzudecken.', type: 'server', min_level: 'neuling' },
+    { prod: 'Oil of Olaz Final', text: 'Die ~1.194 MW hier sind gut durch Treibstoff-Generatoren abzudecken – ihr habt genug Output aus dieser Produktion.', type: 'server', min_level: 'neuling' },
 
     // Folge 4 – Kwartz Endgame
     { prod: 'Kwartz Endgame', text: 'Quarz-Nodes sind oft weiter entfernt. Plane eine Zug- oder Förderband-Verbindung ein.', type: 'einsteiger', min_level: 'neuling' },
@@ -359,16 +557,16 @@ function seedTips() {
     // Folge 6 – TurboSuper
     { prod: 'TurboSuper', text: 'Turbomotoren und Supercomputer sind die letzten großen Zwischenprodukte vor dem Endgame. Fast geschafft!', type: 'einsteiger', min_level: 'neuling' },
     { prod: 'TurboSuper', text: 'Somersloops hier einsetzen spart enorm Ressourcen – die Inputs für Turbomotoren sind extrem teuer.', type: 'pro', min_level: 'neuling' },
-    { prod: 'TurboSuper', text: 'Bei 50% Strom: Nur ~162 MW für diese Produktion – ein Witz im Vergleich zum Output-Wert.', type: 'server', min_level: 'neuling' },
+    { prod: 'TurboSuper', text: 'Nur ~324 MW für diese Produktion – sehr effizient im Vergleich zum Wert der Outputs.', type: 'server', min_level: 'neuling' },
 
     // Folge 7 – SpaceParts Endgame
     { prod: 'SpaceParts Endgame', text: 'Willkommen im Endgame! Hier kommen ALLE vorherigen Produktionen zusammen. Stelle sicher, dass alles stabil läuft.', type: 'einsteiger', min_level: 'neuling' },
-    { prod: 'SpaceParts Endgame', text: '~43.700 MW sind kein Spaß. Plant gemeinsam die Stromversorgung – das ist ein Teamprojekt.', type: 'server', min_level: 'neuling' },
+    { prod: 'SpaceParts Endgame', text: '~87.400 MW sind kein Spaß. Plant gemeinsam die Stromversorgung – das ist ein Teamprojekt.', type: 'server', min_level: 'neuling' },
     { prod: 'SpaceParts Endgame', text: 'Züge sind ab hier fast Pflicht für den Ressourcentransport über lange Distanzen.', type: 'spass', min_level: 'neuling' },
 
     // Folge 7 – Quanto
     { prod: 'Quanto', text: 'Dunkle Materie ist das exotischste Material im Spiel. Die Produktion ist komplex aber faszinierend.', type: 'einsteiger', min_level: 'neuling' },
-    { prod: 'Quanto', text: '~48.817 MW – zusammen mit SpaceParts braucht ihr fast 100 GW. Nuclear Power ist hier der Weg.', type: 'server', min_level: 'neuling' },
+    { prod: 'Quanto', text: '~97.634 MW – zusammen mit SpaceParts braucht ihr fast 200 GW. Nuclear Power ist hier der Weg.', type: 'server', min_level: 'neuling' },
     { prod: 'Quanto', text: 'Der Neural-Quantenprozessor ist das teuerste Item im Spiel. Jedes einzelne zählt!', type: 'pro', min_level: 'neuling' },
 
     // Folge 7 – SpaceFarts

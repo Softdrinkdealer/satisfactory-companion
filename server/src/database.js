@@ -54,9 +54,12 @@ export async function initDatabase() {
       prerequisites_text TEXT,
       outputs_json TEXT,
       forwards_to_json TEXT,
-      somersloops_needed INTEGER DEFAULT 0
+      somersloops_needed INTEGER DEFAULT 0,
+      requirements_json TEXT
     )
   `);
+  // Migration: add requirements_json if it doesn't exist yet
+  try { db.run('ALTER TABLE productions ADD COLUMN requirements_json TEXT'); } catch { /* already exists */ }
 
   db.run(`
     CREATE TABLE IF NOT EXISTS tips (
