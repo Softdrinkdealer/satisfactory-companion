@@ -377,12 +377,12 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
                         {/* Header */}
                         <div className={`px-4 py-2.5 flex items-center gap-3 ${step.is_alternate ? 'bg-yellow-900/20' : ''}`}>
                           <div className={`text-xs font-bold px-2 py-0.5 rounded shrink-0 ${
-                            step.machine === 'Schmelze'      ? 'bg-orange-900/50 text-orange-300' :
+                            step.machine === 'Schmelzofen'   ? 'bg-orange-900/50 text-orange-300' :
                             step.machine === 'Gießerei'      ? 'bg-red-900/50 text-red-300' :
-                            step.machine === 'Konstrukteur'  ? 'bg-green-900/50 text-green-300' :
+                            step.machine === 'Konstruktor'   ? 'bg-green-900/50 text-green-300' :
                             step.machine === 'Monteur'       ? 'bg-blue-900/50 text-blue-300' :
                             step.machine === 'Raffinerie'    ? 'bg-purple-900/50 text-purple-300' :
-                            step.machine === 'Hersteller'    ? 'bg-cyan-900/50 text-cyan-300' :
+                            step.machine === 'Manufaktor'    ? 'bg-cyan-900/50 text-cyan-300' :
                                                               'bg-surface-lighter text-gray-300'
                           }`}>
                             {step.count_display}×

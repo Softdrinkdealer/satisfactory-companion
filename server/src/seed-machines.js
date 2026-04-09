@@ -17,22 +17,22 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '17', recipe: 'Eisenbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '17', recipe: 'Eisenbarren', is_alternate: false,
           inputs:  [{ item: 'Eisenerz',   rate: 510 }],
           outputs: [{ item: 'Eisenbarren', rate: 510 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '8', recipe: 'Eisenplatte', is_alternate: false,
+          machine: 'Konstruktor', count_display: '8', recipe: 'Eisenplatte', is_alternate: false,
           inputs:  [{ item: 'Eisenbarren', rate: 240 }],
           outputs: [{ item: 'Eisenplatte', rate: 160 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '8', recipe: 'Eisenstange', is_alternate: false,
+          machine: 'Konstruktor', count_display: '8', recipe: 'Eisenstange', is_alternate: false,
           inputs:  [{ item: 'Eisenbarren', rate: 150 }],
           outputs: [{ item: 'Eisenstange', rate: 120 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '12', recipe: 'Alt: Gegossene Schraube', is_alternate: true,
+          machine: 'Konstruktor', count_display: '12', recipe: 'Alt: Gegossene Schraube', is_alternate: true,
           inputs:  [{ item: 'Eisenbarren', rate: 120 }],
           outputs: [{ item: 'Schraube', rate: 600 }]
         },
@@ -74,32 +74,32 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '4', recipe: 'Kupferbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '4', recipe: 'Kupferbarren', is_alternate: false,
           inputs:  [{ item: 'Kupfererz',    rate: 120 }],
           outputs: [{ item: 'Kupferbarren', rate: 120 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '2.667', recipe: 'Draht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '2.667', recipe: 'Draht', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 40 }],
           outputs: [{ item: 'Draht', rate: 80 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '4', recipe: 'Kupferblech', is_alternate: false,
+          machine: 'Konstruktor', count_display: '4', recipe: 'Kupferblech', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 80 }],
           outputs: [{ item: 'Kupferblech', rate: 40 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '1', recipe: 'Kabel', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1', recipe: 'Kabel', is_alternate: false,
           inputs:  [{ item: 'Draht', rate: 60 }],
           outputs: [{ item: 'Kabel', rate: 30 }]
         },
         {
-          machine: 'Schmelze', count_display: '1.867', recipe: 'Caterium-Barren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '1.867', recipe: 'Caterium-Barren', is_alternate: false,
           inputs:  [{ item: 'Caterium-Erz',   rate: 84 }],
           outputs: [{ item: 'Caterium-Barren', rate: 28 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '2.333', recipe: 'Turbodraht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '2.333', recipe: 'Turbodraht', is_alternate: false,
           inputs:  [{ item: 'Caterium-Barren', rate: 28  }],
           outputs: [{ item: 'Turbodraht',       rate: 140 }]
         },
@@ -130,12 +130,12 @@ export function seedMachines() {
           outputs: [{ item: 'Stahlbarren', rate: 120 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '1.5', recipe: 'Stahlträger', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1.5', recipe: 'Stahlträger', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 90 }],
           outputs: [{ item: 'Stahlträger', rate: 22.5 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '1', recipe: 'Stahlrohr', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1', recipe: 'Stahlrohr', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 30 }],
           outputs: [{ item: 'Stahlrohr', rate: 20 }]
         }
@@ -156,7 +156,7 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '13.333', recipe: 'Eisenbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '13.333', recipe: 'Eisenbarren', is_alternate: false,
           inputs:  [{ item: 'Eisenerz',    rate: 400 }],
           outputs: [{ item: 'Eisenbarren', rate: 400 }]
         },
@@ -166,12 +166,12 @@ export function seedMachines() {
           outputs: [{ item: 'Stahlbarren', rate: 502.5 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '6', recipe: 'Beton', is_alternate: false,
+          machine: 'Konstruktor', count_display: '6', recipe: 'Beton', is_alternate: false,
           inputs:  [{ item: 'Kalkstein', rate: 270 }],
           outputs: [{ item: 'Beton', rate: 90 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '8.375', recipe: 'Stahlträger', is_alternate: false,
+          machine: 'Konstruktor', count_display: '8.375', recipe: 'Stahlträger', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 251.25 }],
           outputs: [{ item: 'Stahlträger', rate: 125.625 }]
         },
@@ -186,22 +186,22 @@ export function seedMachines() {
           outputs: [{ item: 'Mehrzweckgerüst', rate: 12.5 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '3.25', recipe: 'Stahlrohr', is_alternate: false,
+          machine: 'Konstruktor', count_display: '3.25', recipe: 'Stahlrohr', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 97.5 }],
           outputs: [{ item: 'Stahlrohr', rate: 65 }]
         },
         {
-          machine: 'Schmelze', count_display: '11', recipe: 'Kupferbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '11', recipe: 'Kupferbarren', is_alternate: false,
           inputs:  [{ item: 'Kupfererz',    rate: 330 }],
           outputs: [{ item: 'Kupferbarren', rate: 330 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '22', recipe: 'Draht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '22', recipe: 'Draht', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 330 }],
           outputs: [{ item: 'Draht', rate: 660 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '8.333', recipe: 'Kabel', is_alternate: false,
+          machine: 'Konstruktor', count_display: '8.333', recipe: 'Kabel', is_alternate: false,
           inputs:  [{ item: 'Draht', rate: 500 }],
           outputs: [{ item: 'Kabel', rate: 250 }]
         },
@@ -235,7 +235,7 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '8.519', recipe: 'Eisenbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '8.519', recipe: 'Eisenbarren', is_alternate: false,
           inputs:  [{ item: 'Eisenerz',    rate: 255.556 }],
           outputs: [{ item: 'Eisenbarren', rate: 255.556 }]
         },
@@ -245,12 +245,12 @@ export function seedMachines() {
           outputs: [{ item: 'Stahlbarren', rate: 150 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '12.444', recipe: 'Alt: Eisendraht', is_alternate: true,
+          machine: 'Konstruktor', count_display: '12.444', recipe: 'Alt: Eisendraht', is_alternate: true,
           inputs:  [{ item: 'Eisenbarren', rate: 155.556 }],
           outputs: [{ item: 'Draht', rate: 120 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '5', recipe: 'Stahlrohr', is_alternate: false,
+          machine: 'Konstruktor', count_display: '5', recipe: 'Stahlrohr', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 150 }],
           outputs: [{ item: 'Stahlrohr', rate: 100 }]
         },
@@ -311,32 +311,32 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '19.333', recipe: 'Kupferbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '19.333', recipe: 'Kupferbarren', is_alternate: false,
           inputs:  [{ item: 'Kupfererz',    rate: 580 }],
           outputs: [{ item: 'Kupferbarren', rate: 580 }]
         },
         {
-          machine: 'Schmelze', count_display: '12.267', recipe: 'Caterium-Barren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '12.267', recipe: 'Caterium-Barren', is_alternate: false,
           inputs:  [{ item: 'Caterium-Erz',   rate: 552 }],
           outputs: [{ item: 'Caterium-Barren', rate: 184 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '4', recipe: 'Draht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '4', recipe: 'Draht', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 60 }],
           outputs: [{ item: 'Draht', rate: 120 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '26', recipe: 'Kupferblech', is_alternate: false,
+          machine: 'Konstruktor', count_display: '26', recipe: 'Kupferblech', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 520 }],
           outputs: [{ item: 'Kupferblech', rate: 260 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '1', recipe: 'Kabel', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1', recipe: 'Kabel', is_alternate: false,
           inputs:  [{ item: 'Draht', rate: 60 }],
           outputs: [{ item: 'Kabel', rate: 30 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '15.333', recipe: 'Turbodraht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '15.333', recipe: 'Turbodraht', is_alternate: false,
           inputs:  [{ item: 'Caterium-Barren', rate: 184 }],
           outputs: [{ item: 'Turbodraht', rate: 920 }]
         },
@@ -365,7 +365,7 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '8.333', recipe: 'Eisenbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '8.333', recipe: 'Eisenbarren', is_alternate: false,
           inputs:  [{ item: 'Eisenerz',    rate: 250 }],
           outputs: [{ item: 'Eisenbarren', rate: 250 }]
         },
@@ -375,17 +375,17 @@ export function seedMachines() {
           outputs: [{ item: 'Stahlbarren', rate: 375 }]
         },
         {
-          machine: 'Schmelze', count_display: '11.667', recipe: 'Kupferbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '11.667', recipe: 'Kupferbarren', is_alternate: false,
           inputs:  [{ item: 'Kupfererz',    rate: 350 }],
           outputs: [{ item: 'Kupferbarren', rate: 350 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '23.333', recipe: 'Draht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '23.333', recipe: 'Draht', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 350 }],
           outputs: [{ item: 'Draht', rate: 700 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '12.5', recipe: 'Stahlrohr', is_alternate: false,
+          machine: 'Konstruktor', count_display: '12.5', recipe: 'Stahlrohr', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 375 }],
           outputs: [{ item: 'Stahlrohr', rate: 250 }]
         },
@@ -405,7 +405,7 @@ export function seedMachines() {
           outputs: [{ item: 'Motor', rate: 25 }]
         },
         {
-          machine: 'Hersteller', count_display: '5', recipe: 'Modulare Maschine', is_alternate: false,
+          machine: 'Manufaktor', count_display: '5', recipe: 'Modulare Maschine', is_alternate: false,
           inputs:  [{ item: 'Motor', rate: 10 }, { item: 'Gummi', rate: 75 }, { item: 'Intelligente Beschichtung', rate: 10 }],
           outputs: [{ item: 'Modulare Maschine', rate: 5 }]
         }
@@ -425,7 +425,7 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '7.926', recipe: 'Eisenbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '7.926', recipe: 'Eisenbarren', is_alternate: false,
           inputs:  [{ item: 'Eisenerz',    rate: 237.778 }],
           outputs: [{ item: 'Eisenbarren', rate: 237.778 }]
         },
@@ -435,22 +435,22 @@ export function seedMachines() {
           outputs: [{ item: 'Stahlbarren', rate: 258.75 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '1.25', recipe: 'Eisenplatte', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1.25', recipe: 'Eisenplatte', is_alternate: false,
           inputs:  [{ item: 'Eisenbarren', rate: 37.5 }],
           outputs: [{ item: 'Eisenplatte', rate: 25 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '2.222', recipe: 'Alt: Eisendraht', is_alternate: true,
+          machine: 'Konstruktor', count_display: '2.222', recipe: 'Alt: Eisendraht', is_alternate: true,
           inputs:  [{ item: 'Eisenbarren', rate: 27.778 }],
           outputs: [{ item: 'Draht', rate: 55.556 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '8.625', recipe: 'Stahlrohr', is_alternate: false,
+          machine: 'Konstruktor', count_display: '8.625', recipe: 'Stahlrohr', is_alternate: false,
           inputs:  [{ item: 'Stahlbarren', rate: 258.75 }],
           outputs: [{ item: 'Stahlrohr', rate: 172.5 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '6.75', recipe: 'Beton', is_alternate: false,
+          machine: 'Konstruktor', count_display: '6.75', recipe: 'Beton', is_alternate: false,
           inputs:  [{ item: 'Kalkstein', rate: 303.75 }],
           outputs: [{ item: 'Beton', rate: 101.25 }]
         },
@@ -470,7 +470,7 @@ export function seedMachines() {
           outputs: [{ item: 'Modularer Rahmen', rate: 11.25 }]
         },
         {
-          machine: 'Hersteller', count_display: '1.5', recipe: 'Alt: Schwerer ummantelter Rahmen', is_alternate: true,
+          machine: 'Manufaktor', count_display: '1.5', recipe: 'Alt: Schwerer ummantelter Rahmen', is_alternate: true,
           inputs:  [{ item: 'Modularer Rahmen', rate: 12 }, { item: 'Ummantelter Industrieträger', rate: 15 }, { item: 'Stahlrohr', rate: 36 }, { item: 'Beton', rate: 33 }],
           outputs: [{ item: 'Schwerer Modularer Rahmen', rate: 4.5 }]
         }
@@ -512,7 +512,7 @@ export function seedMachines() {
           outputs: [{ item: 'Verpackter Kraftstoff', rate: 570 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '0.5', recipe: 'Leerer Behälter', is_alternate: false,
+          machine: 'Konstruktor', count_display: '0.5', recipe: 'Leerer Behälter', is_alternate: false,
           inputs:  [{ item: 'Kunststoff', rate: 15 }],
           outputs: [{ item: 'Leerer Behälter', rate: 30 }]
         },
@@ -554,22 +554,22 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Schmelze', count_display: '8.033', recipe: 'Kupferbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '8.033', recipe: 'Kupferbarren', is_alternate: false,
           inputs:  [{ item: 'Kupfererz',    rate: 241 }],
           outputs: [{ item: 'Kupferbarren', rate: 241 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '10.175', recipe: 'Kupferblech', is_alternate: false,
+          machine: 'Konstruktor', count_display: '10.175', recipe: 'Kupferblech', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 101.75 }],
           outputs: [{ item: 'Kupferblech',  rate: 101.75 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '2.5', recipe: 'Draht', is_alternate: false,
+          machine: 'Konstruktor', count_display: '2.5', recipe: 'Draht', is_alternate: false,
           inputs:  [{ item: 'Kupferbarren', rate: 37.5 }],
           outputs: [{ item: 'Draht', rate: 75 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '1.25', recipe: 'Kabel', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1.25', recipe: 'Kabel', is_alternate: false,
           inputs:  [{ item: 'Draht', rate: 75 }],
           outputs: [{ item: 'Kabel', rate: 37.5 }]
         },
@@ -584,12 +584,12 @@ export function seedMachines() {
           outputs: [{ item: 'Computer', rate: 15 }]
         },
         {
-          machine: 'Hersteller', count_display: '1', recipe: 'Hochgeschwindigkeitsverbinder', is_alternate: false,
+          machine: 'Manufaktor', count_display: '1', recipe: 'Hochgeschwindigkeitsverbinder', is_alternate: false,
           inputs:  [{ item: 'Leiterplatine', rate: 3.75 }, { item: 'Kabel', rate: 37.5 }, { item: 'Schnelldraht', rate: 210 }],
           outputs: [{ item: 'Hochgeschwindigkeitsverbinder', rate: 3.75 }]
         },
         {
-          machine: 'Hersteller', count_display: '2.5', recipe: 'Adaptive Steuereinheit', is_alternate: false,
+          machine: 'Manufaktor', count_display: '2.5', recipe: 'Adaptive Steuereinheit', is_alternate: false,
           inputs:  [
             { item: 'Automatisiertes Kabel',          rate: 12.5 },
             { item: 'Hochgeschwindigkeitsverbinder',   rate: 2.5 },
@@ -616,7 +616,7 @@ export function seedMachines() {
       ],
       steps: [
         {
-          machine: 'Konstrukteur', count_display: '1.333', recipe: 'Siliziumdioxid', is_alternate: false,
+          machine: 'Konstruktor', count_display: '1.333', recipe: 'Siliziumdioxid', is_alternate: false,
           inputs:  [{ item: 'Roher Quarz',    rate: 30 }],
           outputs: [{ item: 'Siliziumdioxid', rate: 50 }]
         },
@@ -636,12 +636,12 @@ export function seedMachines() {
           outputs: [{ item: 'Aluminiumbarren', rate: 60 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '0.333', recipe: 'Aluminiumgehäuse', is_alternate: false,
+          machine: 'Konstruktor', count_display: '0.333', recipe: 'Aluminiumgehäuse', is_alternate: false,
           inputs:  [{ item: 'Aluminiumbarren', rate: 30 }],
           outputs: [{ item: 'Aluminiumgehäuse', rate: 20 }]
         },
         {
-          machine: 'Schmelze', count_display: '0.333', recipe: 'Kupferbarren', is_alternate: false,
+          machine: 'Schmelzofen', count_display: '0.333', recipe: 'Kupferbarren', is_alternate: false,
           inputs:  [{ item: 'Kupfererz',    rate: 10 }],
           outputs: [{ item: 'Kupferbarren', rate: 10 }]
         },
@@ -671,12 +671,12 @@ export function seedMachines() {
           outputs: [{ item: 'Quarzkristall', rate: 262.5 }]
         },
         {
-          machine: 'Konstrukteur', count_display: '3', recipe: 'Quarzsand', is_alternate: false,
+          machine: 'Konstruktor', count_display: '3', recipe: 'Quarzsand', is_alternate: false,
           inputs:  [{ item: 'Roher Quarz', rate: 67.5 }],
           outputs: [{ item: 'Quarzsand', rate: 112.5 }]
         },
         {
-          machine: 'Hersteller', count_display: '14', recipe: 'Alt: Isolierter Kristalloszillator', is_alternate: true,
+          machine: 'Manufaktor', count_display: '14', recipe: 'Alt: Isolierter Kristalloszillator', is_alternate: true,
           inputs:  [{ item: 'Quarzkristall', rate: 262.5 }, { item: 'Gummi', rate: 183.75 }, { item: 'KI-Begrenzer', rate: 26.25 }],
           outputs: [{ item: 'Kristalloszillator', rate: 26.25 }]
         }
@@ -692,7 +692,7 @@ export function seedMachines() {
 
   for (const [name, machines] of Object.entries(data)) {
     const prod = prods.find(p => p.name === name);
-    if (prod && !prod.machines_json) {
+    if (prod) {
       execute(
         'UPDATE productions SET machines_json = ? WHERE id = ?',
         [JSON.stringify(machines), prod.id]

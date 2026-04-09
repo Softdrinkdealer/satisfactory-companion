@@ -5,7 +5,7 @@ const NAV_ITEMS = [
   { id: 'power', label: 'Strom', icon: '⚡' },
   { id: 'recipes', label: 'Rezepte', icon: '📖' },
   { id: 'calculator', label: 'Rechner', icon: '🔧' },
-  { id: 'nodes', label: 'Nodes', icon: '🗺️' },
+  { id: 'nodes', label: 'Erze', icon: '🗺️' },
   { id: 'alt-recipes', label: 'Alt-Rezepte', icon: '🔬' },
   { id: 'somersloops', label: 'Somersloops', icon: '🔮' },
   { id: 'extras', label: 'Extras', icon: '🎮' },
