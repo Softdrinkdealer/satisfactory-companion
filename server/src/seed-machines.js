@@ -685,9 +685,191 @@ export function seedMachines() {
         { item: 'Kristalloszillator', rate: 26.25 },
         { item: 'Quarzsand',          rate: 112.5 }
       ]
-    }
+    },
 
-    // Weitere Produktionen werden nach Screenshot-Lieferung ergänzt
+    'Alu Area 3': {
+      steps: [
+        {
+          machine: 'Schmelzofen', count_display: '21', recipe: 'Alt: Reines Aluminiumbarren', is_alternate: true,
+          inputs:  [{ item: 'Bauxit', rate: 612.5 }, { item: 'Wasser', rate: 233.75 }],
+          outputs: [{ item: 'Aluminiumbarren', rate: 200 }]
+        },
+        {
+          machine: 'Raffinerie', count_display: '14', recipe: 'Alt: Elektrodenaluminiumschrott', is_alternate: true,
+          inputs:  [{ item: 'Bauxit', rate: 612.5 }, { item: 'Petrolkoks', rate: 245 }, { item: 'Wasser', rate: 233.75 }],
+          outputs: [{ item: 'Aluminiumschrott', rate: 490 }, { item: 'Wasser', rate: 233.75 }]
+        },
+        {
+          machine: 'Monteur', count_display: '6', recipe: 'Alt: Alclad-Gehäuse', is_alternate: true,
+          inputs:  [{ item: 'Aluminiumbarren', rate: 200 }, { item: 'Alclad-Aluminiumblech', rate: 225 }],
+          outputs: [{ item: 'Aluminiumgehäuse', rate: 250 }]
+        },
+        {
+          machine: 'Manufaktor', count_display: '5', recipe: 'Alt: Schlampige Aluminiumlösung', is_alternate: true,
+          inputs:  [{ item: 'Aluminiumbarren', rate: 200 }, { item: 'Computer', rate: 12.5 }, { item: 'Kristalloszillator', rate: 6.25 }],
+          outputs: [{ item: 'Alclad-Aluminiumblech', rate: 225 }, { item: 'Funksteuereinheit', rate: 25 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Aluminiumbarren',    rate: 200 },
+        { item: 'Aluminiumgehäuse',   rate: 250 },
+        { item: 'Alclad-Aluminiumblech', rate: 225 },
+        { item: 'Funksteuereinheit',  rate: 25 }
+      ]
+    },
+
+    'Cool Runnings': {
+      steps: [
+        {
+          machine: 'Monteur', count_display: '4', recipe: 'Alt: Kühlvorrichtung', is_alternate: true,
+          inputs:  [{ item: 'Alclad-Aluminiumblech', rate: 125 }, { item: 'Kupferfolie', rate: 75 }],
+          outputs: [{ item: 'Kühlsystem', rate: 25 }]
+        },
+        {
+          machine: 'Mischer', count_display: '6', recipe: 'Verschmolzenes Modulares Rahmenwerk', is_alternate: false,
+          inputs:  [{ item: 'Schweres Modulares Rahmenwerk', rate: 4.5 }, { item: 'Aluminiumgehäuse', rate: 225 }, { item: 'Motor', rate: 6.25 }, { item: 'Stickstoffgas', rate: 262.5 }],
+          outputs: [{ item: 'Verschmolzenes Modulares Rahmenwerk', rate: 9 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Kühlsystem',                         rate: 25 },
+        { item: 'Verschmolzenes Modulares Rahmenwerk', rate: 9 }
+      ]
+    },
+
+    'TurboSuper': {
+      steps: [
+        {
+          machine: 'Monteur', count_display: '2', recipe: 'Alt: Übertakteter Supercomputer', is_alternate: true,
+          inputs:  [{ item: 'Kühlsystem', rate: 16.5 }, { item: 'Funksteuereinheit', rate: 12.75 }],
+          outputs: [{ item: 'Supercomputer', rate: 9 }]
+        },
+        {
+          machine: 'Manufaktor', count_display: '1', recipe: 'Turbomotor', is_alternate: false,
+          inputs:  [{ item: 'Kühlsystem', rate: 16.5 }, { item: 'Gummi', rate: 45 }, { item: 'Motor', rate: 7.5 }],
+          outputs: [{ item: 'Turbomotor', rate: 3.75 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Supercomputer', rate: 4.5 },
+        { item: 'Turbomotor',    rate: 1.875 }
+      ]
+    },
+
+    'SpaceParts Endgame': {
+      steps: [
+        {
+          machine: 'Gießerei', count_display: '60', recipe: 'Alt: Kupferlegierungsbarren', is_alternate: true,
+          inputs:  [{ item: 'Kupfererz', rate: 3000 }, { item: 'Eisenerz', rate: 3000 }],
+          outputs: [{ item: 'Kupferbarren', rate: 3000 }, { item: 'Eisenbarren', rate: 1500 }]
+        },
+        {
+          machine: 'Konstruktor', count_display: '20', recipe: 'Verschiedene Komponenten', is_alternate: false,
+          inputs:  [{ item: 'Kupferbarren', rate: 3000 }, { item: 'Eisenbarren', rate: 1500 }],
+          outputs: [{ item: 'Vielseitiges Rahmenwerk', rate: 12.5 }, { item: 'KI-Begrenzer', rate: 5 }, { item: 'Stator', rate: 7.5 }]
+        },
+        {
+          machine: 'Monteur', count_display: '16', recipe: 'Adaptives Steuerungssystem / Modularer Motor', is_alternate: false,
+          inputs:  [{ item: 'Vielseitiges Rahmenwerk', rate: 12.5 }, { item: 'Supercomputer', rate: 2.5 }, { item: 'KI-Begrenzer', rate: 5 }, { item: 'Stator', rate: 7.5 }],
+          outputs: [{ item: 'Adaptives Steuerungssystem', rate: 5 }, { item: 'Modularer Motor', rate: 5 }]
+        },
+        {
+          machine: 'Manufaktor', count_display: '2', recipe: 'Magnetfeldgenerator / Thermische Antriebsrakete', is_alternate: false,
+          inputs:  [{ item: 'Verschmolzenes Modulares Rahmenwerk', rate: 7 }, { item: 'Turbomotor', rate: 2 }, { item: 'Kühlsystem', rate: 6 }, { item: 'Funksteuereinheit', rate: 10 }],
+          outputs: [{ item: 'Magnetfeldgenerator', rate: 5 }, { item: 'Thermische Antriebsrakete', rate: 2 }]
+        },
+        {
+          machine: 'Teilchenbeschleuniger', count_display: '10', recipe: 'Nuklearpasta', is_alternate: false,
+          inputs:  [{ item: 'Kupferstaub', rate: 3000 }, { item: 'Druckkkonversionskubus', rate: 0.5 }],
+          outputs: [{ item: 'Nuklearpasta', rate: 10 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Nuklearpasta',                rate: 10 },
+        { item: 'Montageregiesystem',          rate: 2.5 },
+        { item: 'Thermische Antriebsrakete',   rate: 2 },
+        { item: 'Magnetfeldgenerator',         rate: 5 }
+      ]
+    },
+
+    'Quanto': {
+      steps: [
+        {
+          machine: 'Schmelzofen', count_display: '13', recipe: 'Alt: Reiner Eisenbarren', is_alternate: true,
+          inputs:  [{ item: 'Eisenerz', rate: 387.778 }, { item: 'Wasser', rate: 296.154 }],
+          outputs: [{ item: 'Eisenbarren', rate: 500 }]
+        },
+        {
+          machine: 'Konstruktor', count_display: '19', recipe: 'Alt: Eisenrohr / Alt: Eisendraht', is_alternate: true,
+          inputs:  [{ item: 'Eisenerz', rate: 80.769 }, { item: 'Kalkstein', rate: 300 }],
+          outputs: [{ item: 'Eisenrohr', rate: 100 }, { item: 'Eisendraht', rate: 200 }]
+        },
+        {
+          machine: 'Umwandler', count_display: '25', recipe: 'Zeitkristall / Ficsite-Trigon', is_alternate: false,
+          inputs:  [{ item: 'SAM', rate: 400 }, { item: 'Kalkstein', rate: 300 }],
+          outputs: [{ item: 'Zeitkristall', rate: 24 }, { item: 'Ficsite-Trigon', rate: 255 }, { item: 'Ficsite-Barren', rate: 50 }]
+        },
+        {
+          machine: 'Manufaktor', count_display: '2', recipe: 'SAM-Fluktuator', is_alternate: false,
+          inputs:  [{ item: 'SAM', rate: 400 }, { item: 'Eisenrohr', rate: 100 }, { item: 'Eisendraht', rate: 200 }],
+          outputs: [{ item: 'SAM-Fluktuator', rate: 10 }]
+        },
+        {
+          machine: 'Raffinerie', count_display: '6', recipe: 'Alt: Ölbasierte Diamanten', is_alternate: true,
+          inputs:  [{ item: 'Rohöl', rate: 1080 }, { item: 'Wasser', rate: 296.154 }],
+          outputs: [{ item: 'Dunkelmaterie-Kristall', rate: 80 }, { item: 'Dunkelmaterie-Rückstand', rate: 350 }]
+        },
+        {
+          machine: 'Teilchenbeschleuniger', count_display: '11', recipe: 'Alt: Dunkelmateriekristallisation / Alt: Dunkelmaterifalle', is_alternate: true,
+          inputs:  [{ item: 'Dunkelmaterie-Kristall', rate: 80 }, { item: 'Zeitkristall', rate: 24 }],
+          outputs: [{ item: 'Superpositionsoszillator', rate: 9 }, { item: 'Singularitätszelle', rate: 30 }]
+        },
+        {
+          machine: 'Quantencodierer', count_display: '4', recipe: 'Neuraler Quantenprozessor', is_alternate: false,
+          inputs:  [{ item: 'Kristalloszillator', rate: 9 }, { item: 'Supercomputer', rate: 5 }, { item: 'Nuklearpasta', rate: 1 }, { item: 'Alclad-Aluminiumblech', rate: 81 }, { item: 'Aluminiumbarren', rate: 200 }],
+          outputs: [{ item: 'Neuraler Quantenprozessor', rate: 5 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'SAM-Fluktuator',          rate: 10 },
+        { item: 'Superpositionsoszillator', rate: 9 },
+        { item: 'Neuraler Quantenprozessor', rate: 5 },
+        { item: 'Dunkelmaterie-Kristall',  rate: 80 },
+        { item: 'Zeitkristall',            rate: 12 },
+        { item: 'Ficsite-Trigon',          rate: 225 },
+        { item: 'Singularitätszelle',      rate: 20 }
+      ]
+    },
+
+    'SpaceFarts': {
+      steps: [
+        {
+          machine: 'Mischer', count_display: '5', recipe: 'Biochemischer Bildhauer', is_alternate: false,
+          inputs:  [{ item: 'Ficsite-Trigon', rate: 200 }, { item: 'Neuraler Quantenprozessor', rate: 5 }, { item: 'Wasser', rate: 50 }],
+          outputs: [{ item: 'Biochemischer Bildhauer', rate: 10 }]
+        },
+        {
+          machine: 'Umwandler', count_display: '1', recipe: 'Singularitätszelle', is_alternate: false,
+          inputs:  [{ item: 'Dunkelmaterie-Kristall', rate: 80 }],
+          outputs: [{ item: 'Singularitätszelle', rate: 10 }]
+        },
+        {
+          machine: 'Manufaktor', count_display: '2', recipe: 'Ballistischer Warpantrieb / KI-Expansionsserver', is_alternate: false,
+          inputs:  [{ item: 'Montageregiesystem', rate: 2.5 }, { item: 'Magnetfeldgenerator', rate: 5 }, { item: 'Thermische Antriebsrakete', rate: 2 }, { item: 'Superpositionsoszillator', rate: 9 }],
+          outputs: [{ item: 'Ballistischer Warpantrieb', rate: 2 }, { item: 'KI-Expansionsserver', rate: 5 }]
+        },
+        {
+          machine: 'Quantencodierer', count_display: '2', recipe: 'KI-Expansionsserver', is_alternate: false,
+          inputs:  [{ item: 'Neuraler Quantenprozessor', rate: 5 }, { item: 'Singularitätszelle', rate: 10 }, { item: 'Ficsite-Trigon', rate: 200 }, { item: 'Dunkelmaterie-Kristall', rate: 80 }],
+          outputs: [{ item: 'KI-Expansionsserver', rate: 5 }, { item: 'Dunkelmaterie-Rückstand', rate: 125 }]
+        }
+      ],
+      final_outputs: [
+        { item: 'Biochemischer Bildhauer', rate: 10 },
+        { item: 'Ballistischer Warpantrieb', rate: 2 },
+        { item: 'KI-Expansionsserver',     rate: 5 }
+      ]
+    }
   };
 
   for (const [name, machines] of Object.entries(data)) {
