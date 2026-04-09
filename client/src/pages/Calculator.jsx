@@ -103,7 +103,7 @@ function CalculatorResult({ result }) {
             <div className="text-2xl font-bold text-blue-400">{raw_materials.length}</div>
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <div className="text-xs text-gray-400">Stromverbrauch (50%)</div>
+            <div className="text-xs text-gray-400">Stromverbrauch</div>
             <div className="text-2xl font-bold text-red-400">{totals.power_mw.toLocaleString('de-DE')} MW</div>
           </div>
         </div>

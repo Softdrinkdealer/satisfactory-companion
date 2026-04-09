@@ -46,7 +46,7 @@ export default function Recipes() {
   return (
     <div className="p-4 md:p-6 max-w-5xl mx-auto">
       <h2 className="text-2xl font-bold text-white mb-1">Rezept-Nachschlagewerk</h2>
-      <p className="text-gray-400 text-sm mb-6">Alle Rezepte mit Inputs, Maschinen und Stromverbrauch (50% Modifier)</p>
+      <p className="text-gray-400 text-sm mb-6">Alle Rezepte mit Inputs, Maschinen und Stromverbrauch</p>
 
       {/* Search & Filters */}
       <div className="bg-surface rounded-xl p-4 mb-6 flex flex-col sm:flex-row gap-3">
@@ -157,7 +157,7 @@ function RecipeCard({ recipe, isExpanded, onToggle }) {
               <div className="text-sm text-white">{recipe.machine}</div>
               {recipe.power_original_mw != null && (
                 <div className="text-xs text-gray-400 mt-0.5">
-                  {recipe.power_original_mw} MW original / <span className="text-red-400">{recipe.power_adjusted_mw} MW (50%)</span>
+                  <span className="text-red-400">{recipe.power_original_mw} MW</span>
                 </div>
               )}
             </div>
