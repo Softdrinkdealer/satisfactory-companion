@@ -167,7 +167,7 @@ function PhaseDetail({ phase, expandedProd, setExpandedProd, player, tipFilter, 
           </span>
           {totalPower > 0 && (
             <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">
-              ⚡ ~{totalPower.toLocaleString('de-DE')} MW (50%)
+              ⚡ ~{totalPower.toLocaleString('de-DE')} MW
             </span>
           )}
           <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">

@@ -42,7 +42,7 @@ export default function Power() {
   return (
     <div className="p-4 md:p-6 max-w-5xl mx-auto">
       <h2 className="text-2xl font-bold text-white mb-1">Strom-Tracker</h2>
-      <p className="text-gray-400 text-sm mb-6">Verbrauch vs. Produktion (alle Werte mit 50% Stromkosten)</p>
+      <p className="text-gray-400 text-sm mb-6">Verbrauch vs. Produktion</p>
 
       {/* Summary Bar */}
       <div className="bg-surface rounded-xl p-5 mb-6">
