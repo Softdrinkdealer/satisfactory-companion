@@ -1,5 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { guideApi } from '../api';
+
+const DIAGRAM_MAP = {
+  'Dwight D. Eisentower':  'dwight-d-eisentower',
+  'Copterium Starter':     'copterium-starter',
+  'Steelworks Starter':    'steelworks-starter',
+  'Steelworks Endgame':    'steelworks-endgame',
+  'General Motors Starter':'general-motors-starter',
+  'Oil of Olaz Starter':   'oil-of-olaz-starter',
+  'Copterium City Final':  'copterium-city-final',
+  'General Motors Final':  'general-motors-final',
+  'HeavyRames Endgame':    'heavyrames-endgame',
+  'Oil of Olaz Final':     'oil-of-olaz-final',
+  'Kwartz Endgame':        'kwartz-endgame',
+  'Maxi IBM':              'maxi-ibm',
+  'ALU Starter':           'alu-starter',
+  'Alu Area 3':            'alu-area-3',
+  'Cool Runnings':         'cool-runnings',
+  'TurboSuper':            'turbosuper',
+  'SpaceParts Endgame':    'spaceparts-endgame',
+  'Quanto':                'quanto',
+  'SpaceFarts':            'spacefarts',
+};
 
 const FOLGE_EMOJI = {
   1: '🟢', 2: '🟢', 3: '🟡', 4: '🟡', 5: '🔴', 6: '🔴', 7: '⚫'
@@ -132,9 +154,9 @@ export default function Guide({ player }) {
                 </div>
                 <div className="text-sm text-gray-400 mt-1">
                   {phase.productions.length} Produktion{phase.productions.length !== 1 ? 'en' : ''}
-                  {phase.productions.some(p => p.power_adjusted_mw) && (
+                  {phase.productions.some(p => p.power_original_mw) && (
                     <span className="ml-2">
-                      ⚡ ~{phase.productions.reduce((sum, p) => sum + (p.power_adjusted_mw || 0), 0).toLocaleString('de-DE')} MW
+                      ⚡ ~{phase.productions.reduce((sum, p) => sum + (p.power_original_mw || 0), 0).toLocaleString('de-DE')} MW
                     </span>
                   )}
                 </div>
@@ -149,7 +171,7 @@ export default function Guide({ player }) {
 }
 
 function PhaseDetail({ phase, expandedProd, setExpandedProd, player, tipFilter, visibleTypes }) {
-  const totalPower = phase.productions.reduce((sum, p) => sum + (p.power_adjusted_mw || 0), 0);
+  const totalPower = phase.productions.reduce((sum, p) => sum + (p.power_original_mw || 0), 0);
 
   return (
     <div>
@@ -167,7 +189,7 @@ function PhaseDetail({ phase, expandedProd, setExpandedProd, player, tipFilter, 
           </span>
           {totalPower > 0 && (
             <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">
-              ⚡ ~{totalPower.toLocaleString('de-DE')} MW (50%)
+              ⚡ ~{totalPower.toLocaleString('de-DE')} MW
             </span>
           )}
           <span className="bg-surface-lighter px-2 py-1 rounded text-gray-300">
@@ -203,10 +225,53 @@ function PhaseDetail({ phase, expandedProd, setExpandedProd, player, tipFilter, 
   );
 }
 
+function DiagramLightbox({ name, onClose }) {
+  const slug = DIAGRAM_MAP[name];
+  const src = `/production-diagrams/${slug}.png`;
+
+  const handleKey = useCallback((e) => {
+    if (e.key === 'Escape') onClose();
+  }, [onClose]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [handleKey]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85"
+      onClick={onClose}
+    >
+      <div
+        className="relative max-w-[95vw] max-h-[92vh] flex flex-col"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-2 px-1">
+          <span className="text-white font-semibold text-sm">{name} – Produktionsdiagramm</span>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white text-2xl leading-none ml-6"
+          >
+            ×
+          </button>
+        </div>
+        <img
+          src={src}
+          alt={`Produktionsdiagramm ${name}`}
+          className="rounded-xl object-contain max-w-[95vw] max-h-[85vh] bg-[#1e2a35]"
+        />
+      </div>
+    </div>
+  );
+}
+
 function ProductionCard({ production, expanded, onToggle, tipFilter, visibleTypes }) {
   const prod = production;
   const [tipsExpanded, setTipsExpanded] = useState(false);
   const [planExpanded, setPlanExpanded] = useState(false);
+  const [diagramOpen, setDiagramOpen] = useState(false);
+  const hasDiagram = !!DIAGRAM_MAP[prod.name];
 
   // Filter tips: first by player level visibility, then by selected filter
   const filteredTips = (prod.tips || []).filter(tip => {
@@ -219,6 +284,7 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
 
   return (
     <div className="bg-surface rounded-xl overflow-hidden">
+      {diagramOpen && <DiagramLightbox name={prod.name} onClose={() => setDiagramOpen(false)} />}
       <button
         onClick={onToggle}
         className="w-full px-5 py-4 flex items-center gap-4 hover:bg-surface-light transition-colors text-left"
@@ -241,9 +307,14 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
                 💬 {tipCount} Tipp{tipCount !== 1 ? 's' : ''}
               </span>
             )}
+            {hasDiagram && (
+              <span className="text-xs bg-teal-900/40 text-teal-400 px-2 py-0.5 rounded">
+                📊 Diagramm
+              </span>
+            )}
           </div>
-          {prod.power_adjusted_mw && (
-            <span className="text-sm text-gray-400">⚡ ~{prod.power_adjusted_mw.toLocaleString('de-DE')} MW</span>
+          {prod.power_original_mw && (
+            <span className="text-sm text-gray-400">⚡ ~{prod.power_original_mw.toLocaleString('de-DE')} MW</span>
           )}
         </div>
         <span className={`text-gray-400 transition-transform ${expanded ? 'rotate-90' : ''}`}>›</span>
@@ -251,6 +322,16 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
 
       {expanded && (
         <div className="px-5 pb-4 space-y-4 border-t border-surface-lighter pt-4">
+          {/* Diagram Button */}
+          {hasDiagram && (
+            <button
+              onClick={() => setDiagramOpen(true)}
+              className="w-full flex items-center justify-center gap-2 bg-teal-900/20 border border-teal-800/30 hover:bg-teal-900/40 text-teal-300 rounded-xl py-3 text-sm font-medium transition-colors"
+            >
+              📊 Produktionsdiagramm anzeigen
+            </button>
+          )}
+
           {/* Prerequisites */}
           <div>
             <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
