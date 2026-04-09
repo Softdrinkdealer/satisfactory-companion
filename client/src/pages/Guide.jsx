@@ -431,18 +431,20 @@ function ProductionCard({ production, expanded, onToggle, tipFilter, visibleType
               {planExpanded && (
                 <div className="mt-3 space-y-3">
                   {/* Rohstoffe */}
-                  <div className="bg-surface-light rounded-xl p-4">
-                    <div className="text-xs text-gray-500 uppercase mb-2">⛏️ Rohstoff-Input</div>
-                    <div className="flex flex-wrap gap-2">
-                      {prod.machines.raw_inputs.map((inp, i) => (
-                        <div key={i} className="flex items-center gap-1.5 bg-surface rounded-lg px-3 py-1.5">
-                          <span className="text-sm text-white">{inp.item}</span>
-                          <span className="text-xs font-bold text-blue-400">{inp.rate}/min</span>
-                          {inp.note && <span className="text-xs text-gray-500 italic">({inp.note})</span>}
-                        </div>
-                      ))}
+                  {prod.machines.raw_inputs?.length > 0 && (
+                    <div className="bg-surface-light rounded-xl p-4">
+                      <div className="text-xs text-gray-500 uppercase mb-2">⛏️ Rohstoff-Input</div>
+                      <div className="flex flex-wrap gap-2">
+                        {prod.machines.raw_inputs.map((inp, i) => (
+                          <div key={i} className="flex items-center gap-1.5 bg-surface rounded-lg px-3 py-1.5">
+                            <span className="text-sm text-white">{inp.item}</span>
+                            <span className="text-xs font-bold text-blue-400">{inp.rate}/min</span>
+                            {inp.note && <span className="text-xs text-gray-500 italic">({inp.note})</span>}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Maschinenschritte */}
                   <div className="space-y-2">
