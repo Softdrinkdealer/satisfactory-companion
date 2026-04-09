@@ -153,6 +153,9 @@ export async function initDatabase() {
     )
   `);
 
+  // Migration: machines_json Spalte hinzufügen (Produktionsplan aus Tschuki Masterclass)
+  try { db.run('ALTER TABLE productions ADD COLUMN machines_json TEXT'); } catch { /* already exists */ }
+
   // Migration: set power_adjusted_mw = power_original_mw (remove 50% modifier)
   db.run('UPDATE productions SET power_adjusted_mw = power_original_mw WHERE power_adjusted_mw IS NOT NULL AND power_original_mw IS NOT NULL AND power_adjusted_mw != power_original_mw');
   db.run('UPDATE recipes SET power_adjusted_mw = power_original_mw WHERE power_adjusted_mw IS NOT NULL AND power_original_mw IS NOT NULL AND power_adjusted_mw != power_original_mw');
