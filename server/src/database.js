@@ -153,6 +153,9 @@ export async function initDatabase() {
     )
   `);
 
+  // Migration: machines_json Spalte hinzufügen (Produktionsplan aus Tschuki Masterclass)
+  try { db.run('ALTER TABLE productions ADD COLUMN machines_json TEXT'); } catch { /* already exists */ }
+
   // Seed default players if none exist
   const result = db.exec('SELECT COUNT(*) as cnt FROM players');
   const count = result[0]?.values[0]?.[0] ?? 0;
