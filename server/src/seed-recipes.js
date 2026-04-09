@@ -93,7 +93,7 @@ export function seedRecipes() {
     execute(
       `INSERT INTO recipes (name, output_item, output_rate, inputs_json, machine, power_original_mw, power_adjusted_mw, is_alternative, unlock_method, tier, folge_number, category)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [r.name, r.output_item, r.output_rate, JSON.stringify(r.inputs), r.machine, r.power, r.power * 0.5, r.alt ? 1 : 0, r.unlock || null, r.tier, r.folge || null, r.cat]
+      [r.name, r.output_item, r.output_rate, JSON.stringify(r.inputs), r.machine, r.power, r.power, r.alt ? 1 : 0, r.unlock || null, r.tier, r.folge || null, r.cat]
     );
   }
 }

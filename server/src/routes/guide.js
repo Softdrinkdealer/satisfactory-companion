@@ -7,9 +7,10 @@ function enrichProduction(p) {
   const tips = queryAll('SELECT * FROM tips WHERE production_id = ? ORDER BY id', [p.id]);
   return {
     ...p,
-    outputs: JSON.parse(p.outputs_json || '[]'),
-    forwards_to: JSON.parse(p.forwards_to_json || '[]'),
+    outputs:      JSON.parse(p.outputs_json   || '[]'),
+    forwards_to:  JSON.parse(p.forwards_to_json || '[]'),
     requirements: p.requirements_json ? JSON.parse(p.requirements_json) : null,
+    machines:     p.machines_json     ? JSON.parse(p.machines_json)     : null,
     tips,
   };
 }
